@@ -52,7 +52,7 @@ QVHLTQSGPEVRKPGTSVKVSCKAPGNTLKTYDLHWVRSVPGQGLQWMGWISHEGDKKVIVERFKAKVTIDWDRSTNTAY
 #NOTICE#
 1. The header in a fasta file must be '>heavy' or '>light'
 2. The file name extension of a list file must be '.list'.
-3. The default value of number of cores is the half the number of your CPUs.
+3. The default value of the number of cores is half the number of your CPUs.
 4. If you use a list file as input, an output file will be created, regardless of whether -o option is given or not.
 
 
