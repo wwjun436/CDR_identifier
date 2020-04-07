@@ -197,12 +197,14 @@ def pdb_file(pdb_file):
 			else:
 				flag1=float(pdb_line[22:26])+float(al.find(pdb_line[26]))/100
 				seq+=(AA_dic[pdb_line[17:20]])
-
 	
 	return seq
 
 result_heavy2=[]
 result_light2=[]
+
+head=('ID'+'\t'+'CDR1'+'\t'+'CDR2'+'\t'+'CDR3')
+print(head)
 
 if mode == "seq":
 	if chain != {}:
@@ -214,9 +216,9 @@ if mode == "seq":
 						ans=(par(n))
 						result_heavy.append(ans)
 					
-					print(str(num+1)+'_CDR_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
-					result_final.append(str(num+1)+'_CDR_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
-					result_heavy2.append(str(num+1)+'_CDR_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
+					print('CDR_heavy_'+str(num+1)+'\t'+'\t'.join(result_heavy[-3:]))
+					result_final.append('CDR_heavy_'+str(num+1)+'\t'+'\t'.join(result_heavy[-3:]))
+					result_heavy2.append('CDR_heavy_'+str(num+1)+'\t'+'\t'.join(result_heavy[-3:]))
 					
 			elif chainline == "L":
 				for num,n in enumerate(chain[chainline]):
@@ -224,17 +226,17 @@ if mode == "seq":
 					for cdr in chainlist[3:]:
                					ans=(par(n))
 						result_light.append(ans)
-					print(str(num+1)+'_CDR_light'+'\t'+'\t'.join(result_light[-3:]))
-					result_final.append(str(num+1)+'_CDR_light'+'\t'+'\t'.join(result_light[-3:]))
-					result_light2.append(str(num+1)+'_CDR_light'+'\t'+'\t'.join(result_light[-3:]))
+					print('CDR_light_'+str(num+1)+'\t'+'\t'.join(result_light[-3:]))
+					result_final.append('CDR_light_'+str(num+1)+'\t'+'\t'.join(result_light[-3:]))
+					result_light2.append('CDR_light_'+str(num+1)+'\t'+'\t'.join(result_light[-3:]))
 		if output != None:
-			open(output,'w').write('\n'.join(result_final))
-		elif output == None and auto_out != {}:
+			open(output,'w').write(head+'\n'+'\n'.join(result_final))
+		if auto_out != {}:
 			for key in auto_out:
 				if key == "H":
-					open(auto_out[key]+'_H.out','w').write('\n'.join(result_heavy2))
+					open(auto_out[key].split('/')[-1]+'_H.out','w').write(head+'\n'+'\n'.join(result_heavy2))
 				elif key == "L":
-					open(auto_out[key]+'_L.out','w').write('\n'.join(result_light2))
+					open(auto_out[key].split('/')[-1]+'_L.out','w').write(head+'\n'+'\n'.join(result_light2))
 					
 	else:
 		help()
@@ -250,19 +252,19 @@ elif mode == "fasta":
 					for cdr in chainlist[:3]:
 						ans=(par(seq_dic[seq_chain]))
 						result_heavy.append(ans)
-					print(n.replace('.fasta','')+'_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
-					result_final.append(n.replace('.fasta','')+'_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
+					print(n.replace('.fasta','').split('/')[-1]+'_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
+					result_final.append(n.replace('.fasta','').split('/')[-1]+'_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
 				elif seq_chain=="light":
 		        		for cdr in chainlist[3:]:
 	        	        		ans=(par(seq_dic[seq_chain]))
 	                        		result_light.append(ans)
-					print(n.replace('.fasta','')+'_light'+'\t'+'\t'.join(result_light[-3:]))
-					result_final.append(n.replace('.fasta','')+'_light'+'\t'+'\t'.join(result_light[-3:]))
+					print(n.replace('.fasta','').split('/')[-1]+'_light'+'\t'+'\t'.join(result_light[-3:]))
+					result_final.append(n.replace('.fasta','').split('/')[-1]+'_light'+'\t'+'\t'.join(result_light[-3:]))
 
 		if output != None:    	
-			open(output,'w').write('\n'.join(result_final))
-		elif output == None and auto_out != {}:
-			open(auto_out["fasta"]+".out",'w').write('\n'.join(result_final))
+			open(output,'w').write(head+'\n'+'\n'.join(result_final))
+		if auto_out != {}:
+			open(auto_out["fasta"].split('/')[-1]+".out",'w').write(head+'\n'+'\n'.join(result_final))
     	else:
     		help()
 		sys.exit(1)
@@ -277,9 +279,9 @@ elif mode == "pdb":
 						ans=(par(pdb_file(n)))
 						result_heavy.append(ans)
 					chain_info = n.split(':')[1]
-					print(n.replace('.pdb','')+'_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
-					result_final.append(n.replace('.pdb','')+'_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
-					result_heavy2.append(n.replace('.pdb','')+'_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
+					print(n.replace('.pdb','').split('/')[-1]+'_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
+					result_final.append(n.replace('.pdb','').split('/')[-1]+'_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
+					result_heavy2.append(n.replace('.pdb','').split('/')[-1]+'_heavy'+'\t'+'\t'.join(result_heavy[-3:]))
                         elif chainline == "L":
 				for n in chain[chainline]:
 					n=n.strip()
@@ -287,17 +289,17 @@ elif mode == "pdb":
                                         	ans=(par(pdb_file(n)))
                                         	result_light.append(ans)
 					chain_info = n.split(':')[1]
-					print(n.replace('.pdb','')+'_light'+'\t'+'\t'.join(result_light[-3:]))
-					result_final.append(n.replace('.pdb','')+'_light'+'\t'+'\t'.join(result_light[-3:]))
-					result_light2.append(n.replace('.pdb','')+'_light'+'\t'+'\t'.join(result_light[-3:]))
+					print(n.replace('.pdb','').split('/')[-1]+'_light'+'\t'+'\t'.join(result_light[-3:]))
+					result_final.append(n.replace('.pdb','').split('/')[-1]+'_light'+'\t'+'\t'.join(result_light[-3:]))
+					result_light2.append(n.replace('.pdb','').split('/')[-1]+'_light'+'\t'+'\t'.join(result_light[-3:]))
 		if output != None:
-			open(output,'w').write('\n'.join(result_final))
-                elif output == None and auto_out != {}:
+			open(output,'w').write(head+'\n'+'\n'.join(result_final))
+                if auto_out != {}:
                         for key in auto_out:
                                 if key == "H":
-                                        open(auto_out[key]+'_H.out','w').write('\n'.join(result_heavy2))
+                                        open(auto_out[key].split('/')[-1]+'_H.out','w').write(head+'\n'+'\n'.join(result_heavy2))
                                 elif key == "L":
-                                        open(auto_out[key]+'_L.out','w').write('\n'.join(result_light2))
+                                        open(auto_out[key].split('/')[-1]+'_L.out','w').write(head+'\n'+'\n'.join(result_light2))
 
 	else:
 		help()
@@ -306,4 +308,3 @@ elif mode == "pdb":
 elif mode == None:
 	help()
 	sys.exit(1)
-

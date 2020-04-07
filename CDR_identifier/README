@@ -26,10 +26,10 @@ pdb - Identifying CDRs from the pdb file.
 
 
 #examples#
-python total2.py --fasta -i 1a14.fasta  ##head names in the fasta file must be '>heavy' or '>light'
-python total2.py --seq -H QVQLQQSGAELVKPGASVRMSCKASGYTFTNYNMYWVKQSPGQGLEWIGIFYPGNGDTSYNQKFKDKATLTADKSSNTAYMQLSSLTSEDSAVYYCARSGGSYRYDGGFDYWGQGTTVTV -o 1a14_H.cdr
-python total2.py --pdb -H 1a14.pdb:A -L 2b15.pdb:B -n 20 -o 1a14_HL.cdr
-python total2.py --pdb -H heaby_pdb.list -L light_pdb.list -n 20 -o pdbs.cdr
+python CDR_identifier.py --fasta -i 1a14.fasta  ##head names in the fasta file must be '>heavy' or '>light'
+python CDR_identifier.py --seq -H QVQLQQSGAELVKPGASVRMSCKASGYTFTNYNMYWVKQSPGQGLEWIGIFYPGNGDTSYNQKFKDKATLTADKSSNTAYMQLSSLTSEDSAVYYCARSGGSYRYDGGFDYWGQGTTVTV -o 1a14_H.cdr
+python CDR_identifier.py --pdb -H 1a14.pdb:A -L 2b15.pdb:B -n 20 -o 1a14_HL.cdr
+python CDR_identifier.py --pdb -H heaby_pdb.list -L light_pdb.list -n 20 -o pdbs.cdr
 
 
 #examples of the list files#
@@ -49,7 +49,7 @@ EVRLVESGGGLVKPGGSLRLSCSASGFDFDNAWMTWVRQPPGKGLEWVGRITGPGEGWSVDYAESVKGRFTISRDNTKNT
 QVHLTQSGPEVRKPGTSVKVSCKAPGNTLKTYDLHWVRSVPGQGLQWMGWISHEGDKKVIVERFKAKVTIDWDRSTNTAYLQLSGLTSGDTAVYYCAKGSKHRLRDYALYDDDGALNWAVDVDYLSNLEFWGQGTAVTVSS
 
 
-#NOTICE#
+###NOTICE###
 1. The header in a fasta file must be '>heavy' or '>light'
 2. The file name extension of a list file must be '.list'.
 3. The default value of the number of cores is half the number of your CPUs.
